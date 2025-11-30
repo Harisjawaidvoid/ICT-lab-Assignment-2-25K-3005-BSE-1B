@@ -1,10 +1,7 @@
-// Import prompt-sync (must be installed in same folder)
 const prompt = require("prompt-sync")();
 
-// Task list array
 let tasks = [];
 
-// Add a task
 function addTask() {
     const task = prompt("Enter a task to add: ");
     if (task.trim() === "") {
@@ -15,7 +12,6 @@ function addTask() {
     console.log("✔ Task added successfully!");
 }
 
-// Remove a task by index
 function removeTask() {
     displayTasks();
     if (tasks.length === 0) return;
@@ -31,7 +27,6 @@ function removeTask() {
     console.log("✔ Task removed successfully!");
 }
 
-// Display all tasks
 function displayTasks() {
     if (tasks.length === 0) {
         console.log("📭 No tasks available.");
@@ -45,13 +40,11 @@ function displayTasks() {
     console.log();
 }
 
-// Clear all tasks
 function clearTasks() {
     tasks = [];
     console.log("✔ All tasks cleared!");
 }
 
-// Main program loop
 while (true) {
     console.log("\nChoose a command:");
     console.log(" add  → Add a task");
