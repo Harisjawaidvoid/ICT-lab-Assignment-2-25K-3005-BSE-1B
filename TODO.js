@@ -3,75 +3,44 @@ const prompt = require("prompt-sync")();
 let tasks = [];
 
 function addTask() {
-    const task = prompt("Enter a task to add: ");
-    if (task.trim() === "") {
-        console.log("❌ Task cannot be empty.");
-        return;
-    }
+    let task = prompt("Enter new task: ");
     tasks.push(task);
-    console.log("✔ Task added successfully!");
+    console.log("Task added.");
 }
 
 function removeTask() {
-    displayTasks();
-    if (tasks.length === 0) return;
-
-    const index = parseInt(prompt("Enter the index of the task to remove: "));
-
-    if (isNaN(index) || index < 1 || index > tasks.length) {
-        console.log("❌ Invalid index.");
-        return;
+    let index = prompt("Enter task index to remove: ");
+    if (index >= 0 && index < tasks.length) {
+        let removed= tasks.splice(index, 1);
+        console.log("Task removed: "+removed);
+    } else {
+        console.log("Invalid index.");
     }
-
-    tasks.splice(index - 1, 1);
-    console.log("✔ Task removed successfully!");
 }
 
 function displayTasks() {
     if (tasks.length === 0) {
-        console.log("📭 No tasks available.");
-        return;
+        console.log("No tasks available.");
+    } else {
+        for(let i=0;i<tasks.length;i++){
+        console.log("\nYour Tasks:");
+        console.log((i+1) + ": " + tasks[i]);
+        }
     }
-
-    console.log("\n📌 Your Tasks:");
-    tasks.forEach((task, i) => {
-        console.log(`${i + 1}. ${task}`);
-    });
-    console.log();
 }
 
 function clearTasks() {
     tasks = [];
-    console.log("✔ All tasks cleared!");
+    console.log("All tasks cleared.");
 }
 
 while (true) {
-    console.log("\nChoose a command:");
-    console.log(" add  → Add a task");
-    console.log(" remove → Remove a task");
-    console.log(" view → View all tasks");
-    console.log(" clear → Clear all tasks");
-    console.log(" exit → Exit program\n");
+    let command = prompt("Enter command (add, remove, view, clear, exit): ");
 
-    const command = prompt("Enter command: ").toLowerCase();
-
-    switch (command) {
-        case "add":
-            addTask();
-            break;
-        case "remove":
-            removeTask();
-            break;
-        case "view":
-            displayTasks();
-            break;
-        case "clear":
-            clearTasks();
-            break;
-        case "exit":
-            console.log("👋 Exiting program...");
-            process.exit();
-        default:
-            console.log("❌ Invalid command. Try again.");
-    }
+    if (command === "add") addTask();
+    else if (command === "remove") removeTask();
+    else if (command === "view") displayTasks();
+    else if (command === "clear") clearTasks();
+    else if (command === "exit") break;
+    else console.log("Invalid command.");
 }
